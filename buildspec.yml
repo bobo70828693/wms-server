@@ -15,7 +15,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Copy env from ssm
-      - aws ssm get-parameter --with-decryption --name /backend/test/.common.env:5 --output text --query 'Parameter.Value' > .common.env
+      - aws ssm get-parameter --with-decryption --name /backend/test/.common.env --output text --query 'Parameter.Value' > .common.env
       - aws ssm get-parameter --with-decryption --name /backend/test/.logistics.env --output text --query 'Parameter.Value' > .logistics.env
       - cat .common.env .logistics.env > .env
       - rm .common.env .logistics.env
