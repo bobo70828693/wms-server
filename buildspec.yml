@@ -10,6 +10,7 @@ phases:
       # - REPOSITORY_URI_NGINX_PHP_FPM=177521679734.dkr.ecr.ap-northeast-1.amazonaws.com/nginx-php-fpm
       # 測試機
       - REPOSITORY_URI_NGINX_PHP_FPM=605903052402.dkr.ecr.ap-northeast-1.amazonaws.com/nginx-php-fpm
+      - REPOSITORY_URI_WMS_BACKEND=605903052402.dkr.ecr.ap-northeast-1.amazonaws.com/wms-backend
       - IMAGE_TAG=latest
   build:
     commands:
@@ -24,12 +25,11 @@ phases:
       - echo install composer ...
       - composer install --ignore-platform-reqs --prefer-dist --no-dev --optimize-autoloader --no-interaction
       - echo Building the docker image ...
-      # - docker build -t ${REPOSITORY_URI_NGINX_PHP_FPM}:latest --platform amd64 -f cloudbuild/Dockerfile .
-      - docker build -t ${REPOSITORY_URI_NGINX_PHP_FPM}:latest --platform amd64
-      # - docker tag $REPOSITORY_URI_NGINX_PHP_FPM:latest $REPOSITORY_URI_NGINX_PHP_FPM:$IMAGE_TAG
+      - docker build -t ${REPOSITORY_URI_NGINX_PHP_FPM}:latest --platform amd64 -f cloudbuild/Dockerfile .
+      - docker tag ${REPOSITORY_URI_NGINX_PHP_FPM}:latest ${REPOSITORY_URI_WMS_BACKEND}:$IMAGE_TAG
   post_build:
     commands:
       - echo Build completed on `date
       - echo Pushing the Docker image ...
       - docker image ls -a
-      # - docker push $REPOSITORY_URI_NGINX_PHP_FPM:$IMAGE_TAG 
+      - docker push ${REPOSITORY_URI_WMS_BACKEND}:$IMAGE_TAG 
