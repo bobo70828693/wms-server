@@ -25,7 +25,7 @@ phases:
       - echo install composer ...
       - composer install --ignore-platform-reqs --prefer-dist --no-dev --optimize-autoloader --no-interaction
       - echo Building the docker image ...
-      - docker build -t ${REPOSITORY_URI_NGINX_PHP_FPM}:latest -f cloudbuild/Dockerfile .
+      - docker build -t ${REPOSITORY_URI_NGINX_PHP_FPM}:latest --platform amd64 -f cloudbuild/Dockerfile .
       - docker tag ${REPOSITORY_URI_NGINX_PHP_FPM}:latest ${REPOSITORY_URI_WMS_BACKEND}:$IMAGE_TAG
   # post_build:
   #   commands:
